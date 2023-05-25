@@ -1,0 +1,328 @@
+/* Таблица подписки */
+CREATE TABLE subscription (
+	id_subscription      bigint          PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	name                 varchar(50)     NOT NULL,
+	cost                 numeric         NOT NULL,
+	description          TEXT            NOT NULL,
+	kol_lik              bigint          NOT NULL,
+	period               interval            NOT NULL
+);
+
+
+-- ALTER TABLE subscription DROP COLUMN period;
+-- ALTER TABLE subscription ADD COLUMN period interval;
+
+INSERT INTO subscription (name, cost, description, kol_lik, period) 
+VALUES ('Стандарт', 0, 'Представляет некоторые базовые функции, такие как создание профиля, просмотра профиля других пользователей, отправка и получение сообщений. Предоставлено два бесплатных сердечка', 2, '2 years');
+
+INSERT INTO subscription (name, cost, description, kol_lik, period) 
+VALUES ('Прериум', 300, 'Поддерживает базовые функции подписки "Стандарт". В рекомендации попадают пользоавтели по лучшим совпадениям. Возможность ставить лайк до десяти пользователям в день', 10, '1 month');
+
+INSERT INTO subscription (name, cost, description, kol_lik, period) 
+VALUES ('VIP', 1000, 'Поддерживает базовые функции подписки "Стандарт" и "Прериум". В рекомендации попадают только проверенные пользоавтели. Возможность ставить лайк до 100 пользователям в день. Возможность просматривать e-mail пользователей.', 100, '1 month');
+
+
+
+
+
+/* Таблица пользователей */
+CREATE TABLE users (
+	id_user              bigint          PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	fullname             TEXT            NOT NULL,
+	username             varchar(50)     NOT NULL,
+	email                TEXT            NOT NULL,
+	phone                varchar(20)     NOT NULL,
+	password             TEXT            NOT NULL,
+	birthday             date,
+	zodiak               varchar(15),
+	education            TEXT,
+	boigraphy            TEXT,
+	height               int,
+	pol                  varchar(10),
+	town                 varchar(20),
+	purpofdating         TEXT,
+	hobbies              TEXT,
+	kol_like             int,
+	id_subscription      bigint          REFERENCES subscription (id_subscription),
+	img                  varchar(50)
+);
+
+ALTER TABLE users ALTER COLUMN img TYPE TEXT;
+ALTER TABLE users ALTER COLUMN id_subscription SET DEFAULT 1;
+ALTER TABLE users ADD COLUMN data_registr timestamp;
+ALTER TABLE users ALTER COLUMN data_registr SET DEFAULT now();
+ALTER TABLE users ADD COLUMN reiting int;
+ALTER TABLE users ALTER COLUMN reiting SET DEFAULT 10;
+ALTER TABLE users ALTER COLUMN kol_like SET DEFAULT 0;
+ALTER TABLE users ADD COLUMN kol_like_po_podpisk int;
+ALTER TABLE users ALTER COLUMN kol_like_po_podpisk SET DEFAULT 2;
+
+-- UPDATE users SET img = 'https://img.freepik.com/free-photo/portrait-of-a-young-businesswoman-holding-eyeglasses-in-hand-against-gray-backdrop_23-2148029483.jpg?w=2000' WHERE id_user = 2;
+-- UPDATE users SET img = 'https://bogdo.studio/assets/images/resources/38/medium/691.jpg' WHERE id_user = 3;
+-- UPDATE users SET img = 'https://n1s2.hsmedia.ru/0a/ad/19/0aad1986dbf671c7de4518e79d6dfe0f/728x410_1_5fbfa7025ea049a6b1e99853a07713d5@1920x1080_0xac120003_15277437091648731578.jpeg' WHERE id_user = 5;
+-- UPDATE users SET img = 'https://gagaru.club/uploads/posts/2023-02/1676228454_gagaru-club-p-samie-krasivie-muzhchini-ispanii-instagram-74.jpg' WHERE id_user = 6;
+-- UPDATE users SET img = 'https://cdn.forbes.ru/files/c/750x468/story_images/caroline_criado-perez.jpg__1600153739__74917.jpg' WHERE id_user = 7;
+-- UPDATE users SET img = 'https://drasler.ru/wp-content/uploads/2019/05/Скачать-фото-мужчины-30-лет-сборка-картинок-4.jpg' WHERE id_user = 8;
+-- UPDATE users SET img = 'https://rat-felt.ru/wp-content/uploads/2019/03/zhenshhiny-v-32-1.jpg' WHERE id_user = 9;
+-- UPDATE users SET img = 'https://gagaru.club/uploads/posts/2023-02/1676365127_gagaru-club-p-samie-krasivie-muzhchini-natsionalnost-vko-84.jpg' WHERE id_user = 10;
+-- UPDATE users SET img = 'https://klike.net/uploads/posts/2020-03/1585641680_1.jpeg' WHERE id_user = 11;
+-- UPDATE users SET img = 'https://meragor.com/files/styles//ava_800_800_wm/avatar-399725-017375png' WHERE id_user = 12;
+
+
+
+CREATE TABLE like_users (
+	id_like             bigint          PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	id_user1            bigint          REFERENCES users (id_user),
+	id_user2            bigint          REFERENCES users (id_user),
+	date_like           date            DEFAULT now(),
+	time_like           time            DEFAULT now()
+);		
+
+CREATE TABLE pars (
+	id_par             bigint           PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	id_user1            bigint          REFERENCES users (id_user),
+	id_user2            bigint          REFERENCES users (id_user),
+	date_par           date             DEFAULT now(),
+	time_par           time             DEFAULT now()
+);	
+
+CREATE TABLE obnov_like (
+	id_obnov             bigint          PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	id_user              bigint            REFERENCES users (id_user),
+	date_obn             date              DEFAULT now(),
+	time_obn             time              DEFAULT now()
+);	
+
+-- UPDATE users SET kol_like_po_podpisk = 2 WHERE id_user = 12;
+-- UPDATE users SET kol_like = 0 WHERE id_user = 3;
+-- UPDATE users SET id_subscription = 1 WHERE id_user = 2;
+-- UPDATE users SET data_registr = '2023-05-22 18:00:00.12324' WHERE id_user = 2;
+-- UPDATE users SET pol = 'ж' WHERE id_user = 9;
+
+
+-- DROP TABLE users
+/* Таблица продаж */
+
+	
+CREATE TABLE vhod_v_acc ( 
+	id_vhod           bigint          PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	date_vhod         date,            
+	time_vhod         time,            
+	id_user           bigint          REFERENCES users (id_user)
+	);
+	
+	
+/* Таблица должностей */
+CREATE TABLE posts (
+	id_post              bigint          PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	name_post            TEXT            NOT NULL,
+	salary               numeric         NOT NULL
+);		
+	
+INSERT INTO posts (name_post, salary) 
+VALUES ('Менеджер', 40000);
+
+INSERT INTO posts (name_post, salary) 
+VALUES ('Администратор БД', 60000);
+
+INSERT INTO posts (name_post, salary) 
+VALUES ('Директор', 100000);
+
+/* Таблица сотрудников */
+CREATE TABLE emp (
+	id_emp               bigint          PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	fullname             TEXT            NOT NULL,
+	phone                varchar(20)     NOT NULL,
+	birthday             date,
+	adress               varchar(20),
+	passport             TEXT,
+	inn                  varchar(13),
+	post                 bigint          REFERENCES posts (id_post)
+);	
+ALTER TABLE emp ADD COLUMN pol varchar(2);
+ALTER TABLE emp ALTER COLUMN adress TYPE varchar(40);
+
+INSERT INTO emp (fullname, pol, phone, birthday, adress, passport, inn, post) 
+VALUES ('Саян Яков Евгеньевич', 'м', '80124983944','1960-02-06', 'СПб, ул.Калинина , д.6, кв.202', 'серия: 3960 номер: 753678', '349504302435', 1);
+
+INSERT INTO emp (fullname, pol, phone, birthday, adress, passport, inn, post) 
+VALUES ('Майоров Марк Арсеньевич','м','89537854983','1991-12-13', 'СПб, ул. Печеная, д.2, кв.47', 'серия: 3991 номер: 846375', '859465789439', 2);
+
+INSERT INTO emp (fullname, pol, phone, birthday, adress, passport, inn, post) 
+VALUES ('Макарова Ирина Андреевна','ж','89654389436','1999-03-12', 'СПб, ул. Солнечная, д.6, кв.353', 'серия: 3999 номер: 736583', '745638954823', 3);
+
+/* Таблица администраторов */
+CREATE TABLE adm (
+	id_adm              bigint          PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	id_emp              bigint          REFERENCES emp (id_emp),
+	username            varchar(50)     NOT NULL,
+	password            TEXT            NOT NULL
+);		
+
+INSERT INTO adm (id_emp, username, password) 
+VALUES (2,'adm1','22222');
+
+CREATE TABLE prodag ( 
+	id_prodag           bigint          PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	date_prodag         date            NOT NULL,
+	time_prodag         time            NOT NULL,
+	id_subscription     bigint          REFERENCES subscription (id_subscription),
+	id_user             bigint          REFERENCES users (id_user),
+	id_emp              bigint          REFERENCES emp (id_emp)
+	);
+
+	ALTER TABLE prodag ALTER COLUMN date_prodag SET DEFAULT now();
+	ALTER TABLE prodag ALTER COLUMN time_prodag SET DEFAULT now();
+	
+
+
+-- select * from users WHERE id_user != 3
+
+-- DROP TABLE users
+
+-- SELECT name FROM users
+-- JOIN subscription USING (id_subscription) WHERE id_user = 2
+
+-- SELECT * FROM prodag WHERE id_user = 2
+-- ORDER BY date_prodag, time_prodag DESC
+-- LIMIT 1;
+
+-- SELECT id_user2 FROM like_users WHERE id_user1 = 2 GROUP BY id_user2
+-- SELECT id_user1 FROM like_users WHERE id_user2 = 2 GROUP BY id_user1
+
+-- SELECT * FROM obnov_like WHERE id_user = 9
+--                                        ORDER BY id_obnov DESC
+--                                        LIMIT 1;
+
+
+
+
+/* Триггер на удаление пары*/
+-- SELECT * FROM pars where (id_user1 = 2 and id_user2 = 10) or (id_user1 = 10 and id_user2 = 2)
+-- SELECT * FROM like_users where (id_user1 = 2 and id_user2 = 10) or (id_user1 = 10 and id_user2 = 2)
+
+CREATE OR REPLACE FUNCTION trigger_ydal_par() RETURNS trigger AS $$
+BEGIN
+
+if (select count(*) from like_users where (id_user1 = OLD.id_user1 and id_user2 = OLD.id_user2) or (id_user1 = OLD.id_user1 and id_user2 = OLD.id_user2))>0
+	then delete from like_users where (id_user1 = OLD.id_user1 and id_user2 = OLD.id_user2) or (id_user1 = OLD.id_user2 and id_user2 = OLD.id_user1);
+	end if;
+	return OLD;
+
+END; 
+$$
+LANGUAGE  plpgsql;
+
+
+CREATE TRIGGER trigger_ydal_par
+BEFORE DELETE ON pars
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_ydal_par();
+
+-- DROP trigger trigger_ydal_par ON pars
+
+
+-- delete from pars where (id_user1 = 2 and id_user2 = 10) or (id_user1 = 10 and id_user2 = 2)
+
+
+
+/* Триггер на удаление подписки*/
+
+
+-- SELECT * FROM users where id_subscription = 4
+-- SELECT * FROM prodag where id_subscription = 4
+
+-- INSERT INTO subscription (name, cost, description, kol_lik, period) 
+-- VALUES ('Медиум', 500, '-', 30, '1 month');
+
+-- UPDATE users SET id_subscription = 5 WHERE id_user = 18;
+-- UPDATE users SET id_subscription = 5 WHERE id_user = 19;
+-- UPDATE users SET id_subscription = 5 WHERE id_user = 20;
+
+
+-- INSERT INTO prodag (id_subscription, id_user, id_emp) 
+-- VALUES  (5, 18, 1);
+-- INSERT INTO prodag (id_subscription, id_user, id_emp) 
+-- VALUES  (5, 19, 1);
+-- INSERT INTO prodag (id_subscription, id_user, id_emp) 
+-- VALUES  (5, 20, 1);
+
+
+CREATE OR REPLACE FUNCTION trigger_ydal_sub() RETURNS trigger AS $$
+BEGIN
+
+	if (select count(*) from prodag where id_subscription = OLD.id_subscription)>0
+		then delete from prodag where id_subscription = OLD.id_subscription;
+	end if;
+	
+	if (select count(*) from users where id_subscription = OLD.id_subscription)>0
+		then UPDATE users SET id_subscription = 1 WHERE id_subscription = OLD.id_subscription;
+	end if;
+	return OLD;
+
+END; 
+$$
+LANGUAGE  plpgsql;
+
+
+CREATE TRIGGER trigger_ydal_sub
+BEFORE DELETE ON subscription
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_ydal_sub();
+
+-- DROP trigger trigger_ydal_sub ON subscription
+
+
+-- delete from subscription where id_subscription = 4;
+
+/* Триггер на удаление пользователя*/
+
+-- select id_ticket from prodag
+-- JOIN(select id_ticket from prodag where prodag.id_customers=20)
+
+
+CREATE OR REPLACE FUNCTION trigger_ydal_user() RETURNS trigger AS $$
+BEGIN
+	
+	if (select count(*) from vhod_v_acc where vhod_v_acc.id_user=OLD.id_user)>0
+	then 
+		delete from vhod_v_acc where vhod_v_acc.id_user=OLD.id_user; 
+	end if;
+	
+	if (select count(*) from obnov_like where obnov_like.id_user=OLD.id_user)>0
+	then 
+		delete from obnov_like where obnov_like.id_user=OLD.id_user; 
+	end if;
+	
+	if (select count(*) from pars where pars.id_user1=OLD.id_user or pars.id_user2=OLD.id_user)>0
+	then 
+		delete from pars where pars.id_user1=OLD.id_user or pars.id_user2=OLD.id_user; 
+	end if;
+	
+		if (select count(*) from like_users where like_users.id_user1=OLD.id_user or like_users.id_user2=OLD.id_user)>0
+	then 
+		delete from like_users where like_users.id_user1=OLD.id_user or like_users.id_user2=OLD.id_user; 
+	end if;
+	
+	if (select count(*) from prodag where prodag.id_user=OLD.id_user)>0
+	then 
+		delete from prodag where prodag.id_user=OLD.id_user; 
+	end if;
+	
+	return OLD;
+
+END; 
+$$
+LANGUAGE  plpgsql;
+
+
+CREATE TRIGGER trigger_ydal_user
+BEFORE DELETE ON users
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_ydal_user();
+
+-- DROP trigger trigger_ydal_user ON users
+
+-- DELETE FROM users WHERE id_user = 20;
+
+-- SELECT * FROM users
