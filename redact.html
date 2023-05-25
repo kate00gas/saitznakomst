@@ -1,0 +1,137 @@
+{% extends 'layout.html' %}
+
+{% block title %}Редактирование профиля{% endblock %}
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+
+{% block content %}
+
+
+<script>
+    $.fn.editable.defaults.mode = 'popup';
+    $(document).ready(function() {
+        $('.people-editable').editable();
+    });
+</script>
+
+<h1 class="text-light">Изменение информации о пользователе</h1>
+<br>
+
+    <div class="container">
+    <form method="post" class="needs-validation" novalidate>
+
+
+        <input type="text" class="form-control" data-mask="date" name="birthday" id="birthday" placeholder="Введите дату рождения (Например: 01.01.1991)" required>
+        <div class="invalid-feedback"> Вы не ввелидату рождения </div> <br>
+
+
+        <input type="text" class="form-control" name="town" id="town" placeholder="Введите город проживания" required>
+        <div class="invalid-feedback"> Вы не ввели город проживания </div> <br>
+
+
+        <input type="text" class="form-control" name="goal" id="goal" placeholder="Опишите цель знакомства" required>
+        <div class="invalid-feedback"> Вы не ввели цель знакомства </div> <br>
+
+         <input type="text" class="form-control" name="znak" id="znak" placeholder="Введите знак зодиака" required>
+        <div class="invalid-feedback"> Вы не ввели знак зодиака </div> <br>
+
+         <input type="text" class="form-control" name="obr" id="obr" placeholder="Введите информацию об образовании" required>
+        <div class="invalid-feedback"> Вы не ввели информацию об образовании </div> <br>
+
+
+         <input type="number" class="form-control" name="rost" id="rost" placeholder="Введите свой рост" required>
+        <div class="invalid-feedback"> Вы не ввели свой рост </div> <br>
+
+        <input type="text" class="form-control" name="img" id="img" placeholder="Введите адрес изображения" required>
+        <div class="invalid-feedback"> Вы не адрес изображения </div> <br>
+
+
+            <div class="form-group">
+                <label for="pol" class = "text-light">Выберите пол</label>
+                    <select class="form-control" name="pol" id="pol" required>
+                        <option>м</option>
+                        <option>ж</option>
+                        <option>Секрет</option>
+                    </select>
+            </div>
+
+        <input type="text" class="form-control" name="yvlech" id="yvlech" placeholder="Введите свои увлечения" required>
+        <div class="invalid-feedback"> Вы не ввели цель знакомства </div> <br>
+
+         <input type="text" class="form-control" name="bio" id="bio" placeholder="Кратко опишите свою биографию" required>
+        <div class="invalid-feedback"> Вы не ввели свою биографию </div> <br>
+
+
+        <button class="btn btn-outline-light" type="submit"> Изменить </button>
+    </form>
+        </div>
+<style>
+body{
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+}
+</style>
+<script>
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+
+
+   <script src="https://unpkg.com/imask"></script> <!-- Подключаем плагин через CDN -->
+    <script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const mask = (dataValue, options) => { // создаем универсальную функцию
+    const elements = document.querySelectorAll(`[data-mask="${dataValue}"]`) // ищем поля ввода по селектору с переданным значением data-атрибута
+    if (!elements) return // если таких полей ввода нет, прерываем функцию
+
+    elements.forEach(el => { // для каждого из полей ввода
+      IMask(el, options) // инициализируем плагин imask для необходимых полей ввода с переданными параметрами маски
+    })
+  }
+
+  // Используем наше функцию mask для разных типов масок
+
+  // Маска для номера телефона
+  mask('phone', {
+    mask: '+{7}(000)000-00-00'
+  })
+
+  // Маска для почтового индекса
+  mask('postalCode', {
+    mask: '000000' // шесть цифр
+  })
+
+  // Маска для даты
+  mask('date', {
+    mask: Date,
+    min: new Date(1900, 0, 1), // минимальная дата 01.01.1900
+  })
+
+  // Маска для числа
+  mask('number', {
+    mask: Number,
+    thousandsSeparator: ' ' // разделитель тысяч в числе
+  })
+
+})
+
+</script>
+
+<br>
+{% endblock %}

@@ -1,0 +1,240 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 class="text-light">Домашняя страница</h1>
+<p class="text-light">С возвращением, {{ username }}!</p>
+
+<h2 class="text-light text-center">Рекомендации на сегодня</h2>
+<br>
+ {% if acc[11] != None and res != 0 %}
+<div class="container mt-3 d-flex justify-content-evenly">
+
+            <div class="card p-4" style="width: 35rem;">
+                <div class="d-flex align-items-center">
+                    <div class="image">
+<!--                <img src="https://thumbs.dreamstime.com/b/красивый-портрет-девушки-девушка-с-улыбкой-от-изоляции-на-серую-фон-169855044.jpg" class="rounded" width="160" >-->
+                <img src={{res[0][17]}} class="rounded" width="160" >
+
+                    </div>
+
+                <div class="ml-3 w-100">
+                   <h5 class="mb-0 mt-0">{{res[0][1]}}</h5>
+                   <span>Город: {{res[0][12]}}</span>
+                   <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                    <div class="d-flex flex-column">
+                        <span class="articles">Возраст</span>
+                        <span class="number1">{{vosrast[0]}}</span>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <span class="followers">Лайки</span>
+                        <span class="number2">{{res[0][15]}}</span>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <span class="rating">Рейтинг</span>
+                        <span class="number3">{{res[0][19]}}</span>
+                    </div>
+                   </div>
+                   <div class="button mt-2 d-flex flex-row align-items-center">
+
+                       {% if acc[20] == 0 or reaction[0] == 1 %}
+                    <a href="/like/{{res[0][0]}}" class="btn btn-sm btn-outline-primary w-100 disabled" aria-disabled="true" >Лайкнуть</a>
+                       {% else %}
+                       <a href="/like/{{res[0][0]}}" class="btn btn-sm btn-outline-primary w-100" >Лайкнуть</a>
+                          {% endif %}
+                         {% if acc[16] == 2 or acc[16] == 3  %}
+                            <a href="/profile/{{res[0][0]}}" class="btn btn-sm btn-primary w-100 ml-2">Посмотреть профиль</a>
+                       {% endif %}
+                   </div>
+                </div>
+                </div>
+            </div>
+
+     <p style="padding: 1px 10px 1px;">
+
+
+
+    <div class="card p-4" style="width: 35rem;">
+                <div class="d-flex align-items-center">
+                    <div class="image">
+                <img src={{res[1][17]}} class="rounded" width="160" >
+                </div>
+                <div class="ml-3 w-100">
+                   <h5 class="mb-0 mt-0">{{res[1][1]}}</h5>
+                   <span>Город: {{res[1][12]}}</span>
+                   <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                    <div class="d-flex flex-column">
+                        <span class="articles">Возраст</span>
+                        <span class="number1">{{vosrast[1]}}</span>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <span class="followers">Лайки</span>
+                        <span class="number2">{{res[1][15]}}</span>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <span class="rating">Рейтинг</span>
+                        <span class="number3">{{res[1][19]}}</span>
+                    </div>
+                   </div>
+                   <div class="button mt-2 d-flex flex-row align-items-center">
+                        {% if acc[20] == 0 or reaction[1] == 1 %}
+                    <a href="/like/{{res[1][0]}}" class="btn btn-sm btn-outline-primary w-100 disabled" aria-disabled="true" >Лайкнуть</a>
+                       {% else %}
+                       <a href="/like/{{res[1][0]}}" class="btn btn-sm btn-outline-primary w-100" >Лайкнуть</a>
+                          {% endif %}
+
+                       {% if acc[16] == 2 or acc[16] == 3  %}
+                     <a href="/profile/{{res[1][0]}}"  class="btn btn-sm btn-primary w-100 ml-2" >Посмотреть профиль</a>
+                       {% endif %}
+                   </div>
+                </div>
+                </div>
+            </div>
+
+
+<!--                <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" class="rounded" width="120" >-->
+
+</div>
+
+<div class="container mt-3 d-flex justify-content-evenly">
+
+            <div class="card p-4" style="width: 35rem;">
+                <div class="d-flex align-items-center">
+                    <div class="image">
+<!--                <img src="https://thumbs.dreamstime.com/b/красивый-портрет-девушки-девушка-с-улыбкой-от-изоляции-на-серую-фон-169855044.jpg" class="rounded" width="160" >-->
+                <img src={{res[2][17]}} class="rounded" width="160" >
+
+                    </div>
+                <div class="ml-3 w-100">
+                   <h5 class="mb-0 mt-0">{{res[2][1]}}</h5>
+                   <span>Город: {{res[2][12]}}</span>
+                   <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                    <div class="d-flex flex-column">
+                        <span class="articles">Возраст</span>
+                        <span class="number1">{{vosrast[2]}}</span>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <span class="followers">Лайки</span>
+                        <span class="number2">{{res[2][15]}}</span>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <span class="rating">Рейтинг</span>
+                        <span class="number3">{{res[2][19]}}</span>
+                    </div>
+                   </div>
+                   <div class="button mt-2 d-flex flex-row align-items-center">
+                        {% if acc[20] == 0 or reaction[2] == 1 %}
+                    <a href="/like/{{res[2][0]}}" class="btn btn-sm btn-outline-primary w-100 disabled" aria-disabled="true" >Лайкнуть</a>
+                       {% else %}
+                       <a href="/like/{{res[2][0]}}" class="btn btn-sm btn-outline-primary w-100" >Лайкнуть</a>
+                          {% endif %}
+                      {% if acc[16] == 2 or acc[16] == 3  %}
+                     <a href="/profile/{{res[2][0]}}"  class="btn btn-sm btn-primary w-100 ml-2" >Посмотреть профиль</a>
+                       {% endif %}
+                   </div>
+                </div>
+                </div>
+            </div>
+
+     <p style="padding: 1px 20px 1px;">
+
+
+
+    <div class="card p-4" style="width: 35rem;">
+                <div class="d-flex align-items-center">
+                    <div class="image">
+<!--                <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" class="rounded" width="160" >-->
+<!--                -->
+                        <img src={{res[3][17]}} class="rounded" width="160" >
+                    </div>
+                <div class="ml-3 w-100">
+                   <h5 class="mb-0 mt-0">{{res[3][1]}}</h5>
+                   <span>Город: {{res[3][12]}}</span>
+                   <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                    <div class="d-flex flex-column">
+                        <span class="articles">Возраст</span>
+                        <span class="number1">{{vosrast[3]}}</span>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <span class="followers">Лайки</span>
+                        <span class="number2">{{res[3][15]}}</span>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <span class="rating">Рейтинг</span>
+                        <span class="number3">{{res[3][19]}}</span>
+                    </div>
+                   </div>
+                   <div class="button mt-2 d-flex flex-row align-items-center">
+                       {% if acc[20] == 0 or reaction[3] == 1 %}
+                    <a href="/like/{{res[3][0]}}" class="btn btn-sm btn-outline-primary w-100 disabled" aria-disabled="true" >Лайкнуть</a>
+                       {% else %}
+                       <a href="/like/{{res[3][0]}}" class="btn btn-sm btn-outline-primary w-100" >Лайкнуть</a>
+                          {% endif %}
+                        {% if acc[16] == 2 or acc[16] == 3  %}
+                         <a href="/profile/{{res[3][0]}}" class="btn btn-sm btn-primary w-100 ml-2">Посмотреть профиль</a>
+                       {% endif %}
+                   </div>
+                </div>
+                </div>
+            </div>
+    </div>
+{% else %}
+ <div class="container text-center">
+     <p class="text-light">Для отображения рекомендаций необходимо запонить информацию в разделе "Профиль".</p>
+ </div>
+    {% endif %}
+
+
+
+
+<style>
+    body{
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    border-radius: 10px;
+
+}
+
+
+.card{
+  width: 400px;
+  border: none;
+  border-radius: 10px;
+
+  background-color: #fff;
+}
+
+
+
+.stats{
+
+      background: #f2f5f8 !important;
+
+    color: #000 !important;
+}
+.articles{
+  font-size:10px;
+  color: #a1aab9;
+}
+.number1{
+  font-weight:500;
+}
+.followers{
+    font-size:10px;
+  color: #a1aab9;
+
+}
+.number2{
+  font-weight:500;
+}
+.rating{
+    font-size:10px;
+  color: #a1aab9;
+}
+.number3{
+  font-weight:500;
+}
+</style>
+
+
+{% endblock %}

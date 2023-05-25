@@ -1,0 +1,73 @@
+{% extends 'layoutadm.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 class="text-light">Удаление подписки</h1>
+<br>
+
+ <div class="container">
+    <form method="post" class="needs-validation" novalidate>
+
+<div class="form-group">
+        <label for="sub">Выберите подписку</label>
+        <select class="form-control" name="sub" id="sub" required>
+            {% for i in sub %}
+            <option value="{{i[0]}}">{{i}}</option>
+            {% endfor %}
+        </select>
+    </div>
+         <button class="btn btn-outline-light" type="submit"> Удалить </button>
+ </form>
+ </div>
+
+<style>
+    body{
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    border-radius: 10px;
+
+}
+
+
+.card{
+  width: 400px;
+  border: none;
+  border-radius: 10px;
+
+  background-color: #fff;
+}
+
+
+
+.stats{
+
+      background: #f2f5f8 !important;
+
+    color: #000 !important;
+}
+.articles{
+  font-size:10px;
+  color: #a1aab9;
+}
+.number1{
+  font-weight:500;
+}
+.followers{
+    font-size:10px;
+  color: #a1aab9;
+
+}
+.number2{
+  font-weight:500;
+}
+.rating{
+    font-size:10px;
+  color: #a1aab9;
+}
+.number3{
+  font-weight:500;
+}
+</style>
+
+
+{% endblock %}

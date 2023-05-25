@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+{% block title %}Подписки{% endblock %}
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+
+{% block content %}
+
+
+<script>
+    $.fn.editable.defaults.mode = 'popup';
+    $(document).ready(function() {
+        $('.people-editable').editable();
+    });
+</script>
+
+<h1 class="text-light">Купить подписку</h1>
+<br>
+
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 mb-2 text-center">
+
+      <div class="col">
+        <div class="card bg-light text-primary border-primary mb-4 rounded-3 shadow-sm">
+          <div class="card-header border-primary py-3">
+            <h4 class="my-0 fw-normal">Прериум</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{pod[1][2]}}р<small class="text-muted fw-light">/мес</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Количество лайков в день: {{pod[1][4]}}</li>
+              <li>Период: {{pod[1][5]}}</li>
+              <li>Описание: {{pod[1][3]}}</li>
+            </ul>
+            {% if account[16] == pod[1][0] %}
+            <a href="/buy/{{pod[1][0]}}" class="w-100 btn btn-lg btn-primary disabled" aria-disabled="true" >Купить</a>
+            {% else %}
+            <a href="/buy/{{pod[1][0]}}" class="w-100 btn btn-lg btn-primary">Купить</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 text-primary border-primary shadow-sm">
+          <div class="card-header py-3 text-light border-primary bg-primary">
+            <h4 class="my-0 fw-normal">VIP</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{pod[2][2]}}р<small class="text-muted fw-light">/мес</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Количество лайков в день: {{pod[2][4]}}</li>
+              <li>Период: {{pod[2][5]}}</li>
+              <li>Описание: {{pod[2][3]}}</li>
+            </ul>
+            {% if account[16] == pod[2][0] %}
+            <a href="/buy/{{pod[2][0]}}" class="w-100 btn btn-lg btn-primary disabled" aria-disabled="true" >Купить</a>
+            {% else %}
+             <a href="/buy/{{pod[2][0]}}" class="w-100 btn btn-lg btn-primary">Купить</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+<style>
+body{
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+}
+</style>
+{% endblock %}

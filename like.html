@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block title %}Лайк подтвержден{% endblock %}
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+
+{% block content %}
+
+
+<script>
+    $.fn.editable.defaults.mode = 'popup';
+    $(document).ready(function() {
+        $('.people-editable').editable();
+    });
+</script>
+
+<h1 class="text-light">Вы лайкнули пользователя!</h1>
+<br>
+
+    <div class="container">
+        {% if pars == 0 %}
+        <div class="card mb-4 shadow-sm border-primary">
+            <div class="card-header">
+                <h4 class="card-title text-dark text-center">Ожидайте ответа от пользователя: {{acc2[1]}}</h4>
+            </div>
+            <div class="card-body">
+                <p class="text-justify">Если пользователь ответит Вам взаимностью, он появится на вкладке "Пары".</p>
+            </div>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="/home" class="btn btn-outline-light">Вернуться на главную страницу</a>
+        </div>
+          {% endif %}
+
+        {% if pars == 1 %}
+        <div class="card mb-4 shadow-sm border-primary">
+            <div class="card-header">
+                <h4 class="card-title text-dark text-center">Пара создана с пользователем: {{acc2[1]}}</h4>
+            </div>
+            <div class="card-body">
+                <p class="text-justify">Поздравляем, пара создана! Перейдите в чат, чтобы начать общение.</p>
+            </div>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="#" class="btn btn-sm btn-outline-light">Чат</a>
+             <p style="padding: 1px 10px 1px;">
+            <a href="/home" class="btn btn-outline-light">Вернуться на главную страницу</a>
+
+        </div>
+          {% endif %}
+
+    </div>
+<style>
+body{
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+}
+</style>
+{% endblock %}

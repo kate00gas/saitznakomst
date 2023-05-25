@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block title %}Покупка подтверждена{% endblock %}
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+
+{% block content %}
+
+
+<script>
+    $.fn.editable.defaults.mode = 'popup';
+    $(document).ready(function() {
+        $('.people-editable').editable();
+    });
+</script>
+
+<h1 class="text-light">Покупка подтверждена!</h1>
+<br>
+
+    <div class="container">
+        <div class="card mb-4 shadow-sm border-primary">
+         <div class="card-header">
+             <h4 class="card-title text-dark text-center">Вы преобрели подписку: {{pod[1]}}</h4>
+         </div>
+         <div class="card-body">
+             <p class="text-justify">Спасибо за покупку! С сегодняшего дня начинает действовать подписка {{pod[1]}}</p>
+             <p class="card-text"><small class="text-muted">*Покупка является невозвратной. Для получения подробностей, напишите нам на почту: MushRooms@mail.ru или позвоните по телефону: +7 (934) 343-33-23</small></p>
+         </div>
+     </div>
+<!--    <div class="col-md-8 offset-md-8">-->
+<!--            <a href="/home" class="btn btn-lg btn-block btn-outline-primary">Вернуться на домашнюю страницу</a>-->
+<!--    </div>-->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="/home" class="btn btn-outline-light">Вернуться на главную страницу</a>
+    </div>
+    </div>
+<style>
+body{
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+}
+</style>
+{% endblock %}
